@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aroggo Homeo Pharmacy</title>
+    <style>
+        /* ফন্ট ইম্পোর্ট লাইনটি সরানো হয়েছে */
+
+        body {
+            margin: 0;
+            padding: 0;
+            /* Playfair Display এর পরিবর্তে স্বাভাবিক sans-serif ফন্ট ব্যবহার করা হয়েছে */
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a; /* Light black/ash background */
+            color: #f0f0f0; /* Light text color */
+            display: flex; /* Use flexbox for centering */
+            flex-direction: column;
+            justify-content: center; /* Center content vertically */
+            align-items: center; /* Center content horizontally */
+            min-height: 100vh;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            overflow-y: auto; /* Allow vertical scroll if content is long */
+            padding-top: 50px; /* Add some top padding for breathing room */
+            padding-bottom: 50px; /* Add some bottom padding */
+        }
+
+        .container {
+            width: 80%; /* Wider for desktop */
+            max-width: 1000px; /* Maximum width for larger screens */
+            text-align: center;
+            padding: 40px; /* More padding for desktop */
+            box-sizing: border-box;
+            background-color: rgba(34, 34, 34, 0.8); /* Slightly lighter background for sections */
+            border-radius: 10px;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.6); /* Stronger shadow for desktop */
+            margin-bottom: 30px; /* Space between containers */
+        }
+
+        /* Pop-up animation for main content */
+        .pop-up-container {
+            transform: translateY(100vh); /* Start off-screen at the bottom */
+            animation: slideUp 1.5s forwards ease-out;
+            animation-delay: 0.5s; /* Delay for main content */
+            opacity: 0;
+        }
+
+        /* Pop-up animation for buttons */
+        .buttons-container {
+            transform: translateY(100vh); /* Start off-screen at the bottom */
+            animation: slideUp 1.5s forwards ease-out;
+            animation-delay: 2.5s; /* Delay for buttons, after main content */
+            opacity: 0;
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+            justify-content: center;
+            gap: 20px; /* Space between buttons */
+            width: 80%;
+            max-width: 1000px;
+            margin-bottom: 30px; /* Space below buttons */
+        }
+
+        /* Pop-up animation for features section */
+        .features-container {
+            transform: translateY(100vh); /* Start off-screen at the bottom */
+            animation: slideUp 1.5s forwards ease-out;
+            animation-delay: 3.5s; /* Delay for features section, after buttons */
+            opacity: 0;
+            margin-top: 30px; /* Space between sections */
+            background-color: rgba(45, 45, 45, 0.8); /* Slightly different shade for distinction */
+            padding: 40px; /* More padding for desktop */
+            border-radius: 10px;
+        }
+
+        @keyframes slideUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .logo {
+            width: 200px; /* Larger logo for desktop */
+            height: auto;
+            margin-bottom: 30px; /* More space below logo */
+            opacity: 0; /* Initially hidden */
+            animation: fadeIn 1.5s forwards ease-in;
+            animation-delay: 1s; /* Delay for logo */
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            font-size: 4.5em; /* Larger heading for desktop */
+            margin-bottom: 30px; /* More space below heading */
+            color: #e0e0e0;
+            opacity: 0; /* Initially hidden */
+            animation: slideUpAndFadeIn 1.5s forwards ease-out;
+            animation-delay: 0.8s; /* Delay for shop name */
+            letter-spacing: 3px; /* More letter spacing for impact */
+            /* এখানেও ফন্ট পরিবর্তন করা হয়েছে, এটি parent body ফন্ট পাবে */
+        }
+
+        @keyframes slideUpAndFadeIn {
+            from {
+                transform: translateY(70px); /* Move further up */
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        h2 {
+            font-size: 2.5em; /* Larger subheading for desktop */
+            margin-bottom: 25px; /* More space below subheading */
+            color: #d0d0d0;
+            padding-top: 30px; /* More padding */
+            border-top: 1px solid rgba(255, 255, 255, 0.15); /* Slightly stronger border */
+            margin-top: 40px; /* More margin */
+            /* এখানেও ফন্ট পরিবর্তন করা হয়েছে, এটি parent body ফন্ট পাবে */
+        }
+
+        p {
+            font-size: 1.25em; /* Larger paragraph text */
+            line-height: 1.8; /* More comfortable line height */
+            margin-bottom: 15px;
+            /* এখানেও ফন্ট পরিবর্তন করা হয়েছে, এটি parent body ফন্ট পাবে */
+        }
+
+        .contact-info {
+            margin-top: 30px; /* More space above contact info */
+            font-size: 1.1em; /* Slightly larger contact info font */
+            /* এখানেও ফন্ট পরিবর্তন করা হয়েছে, এটি parent body ফন্ট পাবে */
+        }
+
+        .contact-info p {
+            margin: 8px 0;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 30px; /* More space above list */
+        }
+
+        ul li {
+            font-size: 1.25em; /* Larger list item text */
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 35px; /* More padding for bullet */
+            /* এখানেও ফন্ট পরিবর্তন করা হয়েছে, এটি parent body ফন্ট পাবে */
+        }
+
+        ul li:before {
+            content: '•';
+            color: #ff4500; /* Red dot for bullet points */
+            position: absolute;
+            left: 0;
+            font-size: 1.8em; /* Larger bullet point */
+            line-height: 1;
+            top: -2px;
+        }
+
+        .features-list {
+            text-align: left;
+        }
+
+        .specialty-heading {
+            font-size: 1.4em; /* Larger specialty heading */
+            font-weight: bold;
+            margin-top: 25px;
+            color: #ff4500; /* Red color for emphasis */
+            /* এখানেও ফন্ট পরিবর্তন করা হয়েছে, এটি parent body ফন্ট পাবে */
+        }
+
+        .doctor-visit-info {
+            background-color: rgba(55, 55, 55, 0.7);
+            padding: 25px; /* More padding */
+            border-radius: 10px;
+            margin-top: 35px;
+            box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.4); /* Stronger inner shadow */
+        }
+
+        .doctor-visit-info strong {
+            color: #ff4500;
+        }
+
+        .action-button {
+            display: inline-block;
+            background-color: #ff4500; /* Red button color */
+            color: #ffffff;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: none; /* Remove default button border */
+            cursor: pointer;
+            /* এখানেও ফন্ট পরিবর্তন করা হয়েছে, এটি parent body ফন্ট পাবে */
+        }
+
+        .action-button:hover {
+            background-color: #e63900; /* Darker red on hover */
+            transform: translateY(-3px); /* Lift effect on hover */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Responsive adjustments for smaller screens (mobile) */
+        @media (max-width: 768px) {
+            .container, .buttons-container {
+                width: 95%; /* Make containers take more width on mobile */
+                padding: 20px;
+            }
+
+            .logo {
+                width: 120px;
+            }
+
+            h1 {
+                font-size: 2.5em;
+                letter-spacing: 1px;
+            }
+
+            h2 {
+                font-size: 1.8em;
+            }
+
+            p, ul li, .contact-info p, .action-button {
+                font-size: 1em;
+            }
+
+            ul li:before {
+                font-size: 1.2em;
+            }
+
+            .action-button {
+                padding: 12px 25px;
+                font-size: 1em;
+            }
+
+            .buttons-container {
+                flex-direction: column; /* Stack buttons vertically on mobile */
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container pop-up-container">
+        <img src="20230426_102654.png" alt="Aroggo Homeo Pharmacy Logo" class="logo">
+        <h1>Aroggo Homeo Pharmacy</h1>
+
+        <div class="doctor-visit-info">
+            <p>Welcome to our clinic! An <strong>experienced homeopathic doctor</strong> visits us every <strong>Sunday, from 10:00 AM to 1:00 PM</strong>, providing expert treatment for complex and severe health issues, including:</p>
+            <p class="specialty-heading">Thyroid disorders &bull; Tumors &bull; Cancer &bull; and many more.</p>
+        </div>
+
+        <div class="contact-info">
+            <p>Mobile: 01925174138</p>
+            <p>Email: pharmacyaroggohomeo@gmail.com</p>
+            <address>Jalil Plaza, College Road, Sonargaon, Narayanganj</address>
+        </div>
+    </div>
+
+    <div class="buttons-container">
+        <a href="tel:+8801925174138" class="action-button">Call Now</a>
+        <a href="mailto:pharmacyaroggohomeo@gmail.com" class="action-button">Email Now</a>
+    </div>
+
+    <div class="container features-container">
+        <h2>Our Commitment</h2>
+        <ul class="features-list">
+            <li><strong>Affordable Prices:</strong> Quality healthcare should not come at a high cost.</li>
+            <li><strong>Premium-Quality Medicines:</strong> We provide authentic and superior homeopathic remedies.</li>
+            <li><strong>Specialized Treatment:</strong> Tailored care for unique or challenging health conditions.</li>
+            <li><strong>Patient-Centric Approach:</strong> Every patient receives detailed and personalized consultation.</li>
+            <li><strong>Trusted Expertise:</strong> Many years of experience in addressing complex health issues.</li>
+        </ul>
+    </div>
+
+</body>
+</html>
